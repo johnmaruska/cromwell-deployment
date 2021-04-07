@@ -14,7 +14,7 @@ required:
 - cromwell_version
 - region
 - service_account_email
-- ssh_source_ranges
+- source_ranges
 - zone
 
 properties:
@@ -52,6 +52,12 @@ properties:
       type: integer
       default: 28
 
+    open_ports:
+      description: Which ports to allow access through the Firewall for `source_ranges`.
+      type: array
+      default:
+        - 22
+
     cromwell_version:
       description: Version of cromwell to use.
       type: number
@@ -68,9 +74,9 @@ properties:
       description: Service account for the cromwell server to use.
       type: string
 
-    ssh_source_ranges:
+    source_ranges:
       type        : array
-      description : Allow SSH access to the cromwell compute instance from a whitelist of IP addresses via a firewall. Use CIDR notation. To allow connections from any IP (not recommended) use "0.0.0.0/0".
+      description : Allow access to the cromwell compute instance via `open_ports` from a whitelist of IP addresses via a firewall. Use CIDR notation. To allow connections from any IP (not recommended) use "0.0.0.0/0".
 
     zone:
       type: string

@@ -83,6 +83,7 @@ def install_cromwell_config():
     fn = os.path.join(CONFIG_DIR, 'PAPI.v2.conf')
     if os.path.exists(fn):
         print("Already installed cromwell PAPI v2 config...SKIPPING")
+        return
     sys.stderr.write("Install cromwell PAPI v2 config...")
     from jinja2 import Template
     papi_template = Template( _fetch_instance_info(name='papi-v2-conf') )
@@ -98,6 +99,9 @@ def install_cromwell_config():
 
 def install_cromshell():
     os.chdir("/opt")
+    if os.path.exists("/opt/cromshell"):
+        print("Already installed cromshell...SKIPPING")
+        return
     cmd = ["git", "clone", "https://github.com/broadinstitute/cromshell.git"]
     print("RUNNING: {}".format(" ".join(cmd)))
     subprocess.check_call(cmd)
