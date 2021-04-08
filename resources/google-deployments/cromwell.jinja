@@ -18,17 +18,17 @@ resources:
     ipCidrRange: 10.10.0.0/16
     region: {{ properties["region"] }}
 
-{% if properties['ssh_source_ranges'] %}
+{% if properties['source_ranges'] %}
 - name: {{ networkName }}-ssh-allowed
   type: compute.v1.firewall
   properties:
     network: $(ref.{{ networkName }}.selfLink)
-    sourceRanges: {{ properties['ssh_source_ranges'] }}
+    sourceRanges: {{ properties['source_ranges'] }}
     targetTags: ["cromwell-ssh-allowed"]
     priority: 1000
     allowed:
     - IPProtocol: TCP
-      ports: ["22"]
+      ports: {{ properties['open_ports'] }}
     - IPProtocol: ICMP
 {% endif %}
 
